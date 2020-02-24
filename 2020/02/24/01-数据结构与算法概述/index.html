@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Hello World |  阿亮
+    01.数据结构与算法概述 |  阿亮
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -32,7 +32,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-hello-world" class="article article-type-post" itemscope
+  <article id="post-01-数据结构与算法概述" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -40,7 +40,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Hello World
+  01.数据结构与算法概述
 </h1>
   
 
@@ -49,10 +49,14 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/21/hello-world/" class="article-date">
-  <time datetime="2020-02-21T12:20:36.471Z" itemprop="datePublished">2020-02-21</time>
+      <a href="/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2020-02-24T10:39:49.000Z" itemprop="datePublished">2020-02-24</time>
 </a>
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
       
       
 <div class="word_count">
@@ -60,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">73字</span>
+            <span class="post-count">1.2k字</span>
         </span>
     </span>
 
@@ -69,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -80,8 +84,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -96,19 +98,89 @@
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      <h1 id="01-数据结构与算法概述"><a href="#01-数据结构与算法概述" class="headerlink" title="01.数据结构与算法概述"></a>01.数据结构与算法概述</h1><blockquote>
+<p>本节内容概要</p>
+<ol>
+<li>数据结构及算法概念以及用途</li>
+<li>数据结构分类</li>
+<li>算法的5大特征</li>
+<li>算法的时间复杂度与空间复杂度</li>
+</ol>
+</blockquote>
+<h2 id="1-1、概念"><a href="#1-1、概念" class="headerlink" title="1.1、概念"></a>1.1、概念</h2><blockquote>
+<p>1）. 数据结构是一门研究数据组织方式的学科，可以帮助我们写出高效优雅的代码。选择适当的数据结构可以提高程序的执行效率(时间复杂度)和存储效率（空间复杂度）<br>2). 算法是用来操作数据的一种方法，解决某个问题的计算方法、步骤。<br><font color=red><strong>数据结构是为算法服务的，算法要作用在特定的数据结构之上</strong></font><br>程序=数据结构+算法</p>
+</blockquote>
+<h2 id="1-2、数据结构分类"><a href="#1-2、数据结构分类" class="headerlink" title="1.2、数据结构分类"></a>1.2、数据结构分类</h2><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gc0g2whoxvj30lb08yt9o.jpg" alt=""></p>
+<blockquote>
+<p>1). 线性结构: 简单的前后关系: 数组、链表、队列和栈<br>2). 树结构：普通树、二叉树<br>3). 图结构:<br>和非线性结构</p>
+</blockquote>
+<ul>
+<li><p>线性结构：一对一的关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1） 线性结构作为最常用的数据结构，其特点是数据元素之间存在一对一的线性关系  2） 线性结构有两种不同的存储结构，即顺序存储结构(数组)和链式存储结构(链表)。顺序存储的线性表称为顺序表，顺序表中的存储元素是连续的</span><br><span class="line">3)  链式存储的线性表称为链表，链表中的存储元素不一定是连续的，元素节点中存放数据元素以及相邻元素的地址信息</span><br><span class="line">4） 线性结构常见的有:数组、链表、队列和栈</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>树结构：一对多的关系</p>
+<ul>
+<li>普通树、二叉树<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5gdig1j307s06n74g.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>图：适合存储多对多的关系<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5p8nezj308c071jrk.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="1-3、-算法的五大特征"><a href="#1-3、-算法的五大特征" class="headerlink" title="1.3、 算法的五大特征"></a>1.3、 算法的五大特征</h2><ul>
+<li><ol>
+<li>有穷性：一个算法必须保证可以结束，也即经历一些有限步会结束</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>确定性：算法的每个步骤都应该被精确定义，即同样的输入，输出的结果也一样</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>输入  ：即参数，算法可以有0或者多个输入，即可以有0或者多个参数</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>输出  ：算法必须有输出，即有0或者多个输出</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>可行性: 算法的每一步都是可行的，即可以实现的</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-3、时间复杂度与空间复杂度"><a href="#1-3、时间复杂度与空间复杂度" class="headerlink" title="1.3、时间复杂度与空间复杂度"></a>1.3、时间复杂度与空间复杂度</h2><blockquote>
+<p>::<strong>时间复杂度</strong>::： 是一个 <a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">函数</a> ，它用来描述该算法的运行时间。通常用O()函数来表示算法的变化趋势</p>
+</blockquote>
+<h3 id="1-3-1、如何计算时间复杂度"><a href="#1-3-1、如何计算时间复杂度" class="headerlink" title="1.3.1、如何计算时间复杂度"></a>1.3.1、如何计算时间复杂度</h3><p><strong><code>我们在分析一个算法、一段代码的时间复杂度的时候，也只关注循环执行次数最多的那一段代码就可以了</code></strong></p>
+<ul>
+<li><ol>
+<li>只关注执行次数最多的一段代码，如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int cal(int n) &#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    int I &#x3D; 1;</span><br><span class="line">    for (; I &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">        sum &#x3D; sum + I;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+我们只关注执行次数最多的for循环，执行了n次，因此这段代码的时间复杂度为<font color=red><strong>O(n)</strong></font></li>
+</ol>
+<ul>
+<li><ol start="2">
+<li>总复杂度=复杂度最高的那段代码的复杂度，如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int sum_1 &#x3D; 0;</span><br><span class="line">   int p &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;时间复杂度 O(n)</span><br><span class="line">   for (; p &lt; 100; ++p) &#123;</span><br><span class="line">     sum_1 &#x3D; sum_1 + p;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   int sum_2 &#x3D; 0;</span><br><span class="line">   int q &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n)</span><br><span class="line">   for (; q &lt; n; ++q) &#123;</span><br><span class="line">     sum_2 &#x3D; sum_2 + q;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   int sum_3 &#x3D; 0;</span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   int j &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n^2)   </span><br><span class="line">for (; i &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">     j &#x3D; 1; </span><br><span class="line">     for (; j &lt;&#x3D; n; ++j) &#123;</span><br><span class="line">       sum_3 &#x3D; sum_3 +  i * j;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return sum_1 + sum_2 + sum_3;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+以上代码的时间复杂度按照最多的<font color=red><strong>O(n^2)</strong></font></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><ol start="3">
+<li>乘法法则: 嵌套代码时间复杂度 = 内外嵌套代码时间复杂度的乘积<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; O(n)</span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int ret &#x3D; 0; </span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   for (; i &lt; n; ++i) &#123;</span><br><span class="line">     ret &#x3D; ret + f(i);</span><br><span class="line">   &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> &#x2F;&#x2F;O(n)</span><br><span class="line"> int f(int n) &#123;</span><br><span class="line">  int sum &#x3D; 0;</span><br><span class="line">  int i &#x3D; 1;</span><br><span class="line">  for (; i &lt; n; ++i) &#123;</span><br><span class="line">    sum &#x3D; sum + i;</span><br><span class="line">  &#125; </span><br><span class="line">  return sum;</span><br><span class="line"> &#125;</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">上面代码的时间复杂度 &#x3D; O(n) * O(n) &#x3D; O(n^2)</span><br><span class="line">- 4.平均时间复杂度：因为最好和最坏情况不一样，所以会出现一个平均时间复杂度,如</span><br></pre></td></tr></table></figure>
+要查找的变量 x 在数组中的位置，有 n+1 种情况：在数组的 0～n-1 位置中和不在数组中,<pre><code>![](https://tva1.sinaimg.cn/large/0082zybply1gc1t5wf4zcj30vm05y0t3.jpg)
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+</code></pre></li>
+</ol>
+</li>
+</ul>
+<h3 id="1-3-2、时间复杂度分类"><a href="#1-3-2、时间复杂度分类" class="headerlink" title="1.3.2、时间复杂度分类"></a>1.3.2、时间复杂度分类</h3><p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0tqcdfm4j313c0pq777.jpg" alt=""><br>[file:D219232D-1891-41A9-B9A9-0B607508E0A9-20504-0000CB6141584E2F/时间复杂度.xmind]</p>
+<blockquote>
+<p>时间复杂度耗时： O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n²)&lt;O(n³)&lt;O(2ⁿ)&lt;O(n!)</p>
+</blockquote>
+<p>#数据结构与算法/时间复杂度</p>
 
       
       <!-- reward -->
@@ -178,13 +250,15 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/02/21/hello-world/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="tag">时间复杂度</a></li></ul>
+
 
     </footer>
 
@@ -194,15 +268,20 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/02/24/00-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/" class="article-nav-link">
+      <a href="/2020/02/24/02-%E6%95%B0%E7%BB%84/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            00.数据结构与算法大纲.md
+            02.数组
           
         </div>
       </a>
     
+    
+      <a href="/2020/02/24/00-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">00.数据结构与算法大纲.md</div>
+      </a>
     
   </nav>
 

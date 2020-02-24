@@ -1,8 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>数据结构与算法大纲.md</title>
-    <url>/2020/02/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/</url>
+    <title>关于我</title>
+    <url>/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/</url>
+    <content><![CDATA[<p>程序员阿亮</p>
+]]></content>
+      <categories>
+        <category>about</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>03.链表</title>
+    <url>/2020/02/24/03-%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="03-链表"><a href="#03-链表" class="headerlink" title="03.链表"></a>03.链表</h1><blockquote>
+<p>内容概要<br>1). 链表的概念<br>2). 链表分类<br>3). 链表的代码实现</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><blockquote>
+<p>1). 链表同数组一样也是线性表,从内存结构来说，链表是一段不连续的内存空间,通过指针将数据连接起来，用于存储一对一的关系<br>2). 链表适用于添加删除元素比较多的数据存储。</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1xx1ano5j30vq0jf0ub.jpg" alt=""></p>
+<p>::<strong>链表与数组的区别</strong>::</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间连续性</td>
+<td>连续</td>
+<td>不连续，通过指针组织成一个链表</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>随机访问</td>
+<td>添加，删除</td>
+</tr>
+<tr>
+<td>特性</td>
+<td>添加删除需要移动元素，只适合查询和修改</td>
+<td>添加删除不移动元素，不适合查询和修改</td>
+</tr>
+</tbody></table>
+<h2 id="2-链表的分类"><a href="#2-链表的分类" class="headerlink" title="2.链表的分类"></a>2.链表的分类</h2><blockquote>
+<p>Node节点代码如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 单链表的反转</span><br><span class="line"> * 思路：</span><br><span class="line"> *  单链表有head属性，next属性，data属性</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Node&lt;E&gt; &#123;</span><br><span class="line">    private E data;</span><br><span class="line">    public Node next;</span><br><span class="line"></span><br><span class="line">    public Node(E data) &#123;</span><br><span class="line">        this.data &#x3D; data;</span><br><span class="line">    &#125;</span><br><span class="line">    public E getData() &#123;</span><br><span class="line">        return data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-单链表"><a href="#2-1-单链表" class="headerlink" title="2.1 单链表:"></a>2.1 单链表:</h3><h4 id="a-定义"><a href="#a-定义" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>除了存储数据之外，还要存储下个节点的指针，特殊节点：头节点前一个节点没有，尾节点的next指向null<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1y7uowkfj30vq0b3js6.jpg" alt=""><br>[image:BC1C2715-A2FD-49CD-AF85-B84AA8361CCB-25059-00010DD68D537F95/b93e7ade9bb927baad1348d9a806ddeb.jpg]</p>
+</blockquote>
+<h4 id="b-单链表的添加删除操作"><a href="#b-单链表的添加删除操作" class="headerlink" title="b). 单链表的添加删除操作"></a>b). 单链表的添加删除操作</h4><ol>
+<li>图示： [image:30206742-437D-471F-9BEF-FFB0C471C478-25059-00010E2BD5666F09/452e943788bdeea462d364389bd08a17.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ydxpxllj30vq0i275j.jpg" alt=""></li>
+<li>代码示意<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- [ ]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="2-2-循环链表"><a href="#2-2-循环链表" class="headerlink" title="2.2. 循环链表"></a>2.2. 循环链表</h3><h4 id="a-定义-1"><a href="#a-定义-1" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>特殊的单链表，链表的尾节点的next指向头节点<br>优点：从链尾到链头比较方便</p>
+</blockquote>
+<p>[image:B5233099-4895-43C8-B5E0-B3E28B1A9333-25059-00010E64EAB94A41/86cb7dc331ea958b0a108b911f38d155.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1yiex9jrj30vq0b3js3.jpg" alt=""></p>
+<h4 id="b-代码实现"><a href="#b-代码实现" class="headerlink" title="b). 代码实现"></a>b). 代码实现</h4><blockquote>
+<p>循环链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3-双向链表"><a href="#2-3-双向链表" class="headerlink" title="2.3.双向链表"></a>2.3.双向链表</h3><p><font color=red>LinkedList是双向链表</font></p>
+<h4 id="a-定义-2"><a href="#a-定义-2" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>双向链表支持两个方向,比单链表多了一个pre指针,指向前一个节点，因此双向链表占用空间比单链表更多<br>多了一个前驱节点，支持双向遍历<br>[image:D6135725-4141-4B4C-956D-9C9B3467F9C9-25059-00010E8DFAFB8E52/cbc8ab20276e2f9312030c313a9ef70b.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ylhnillj30vq0b3js8.jpg" alt=""></p>
+</blockquote>
+<h4 id="b-代码"><a href="#b-代码" class="headerlink" title="b). 代码"></a>b). 代码</h4><blockquote>
+<p>双向链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-应用实例"><a href="#3-应用实例" class="headerlink" title="3. 应用实例"></a>3. 应用实例</h2><h3 id="3-1-LRU缓存"><a href="#3-1-LRU缓存" class="headerlink" title="3.1. LRU缓存"></a>3.1. LRU缓存</h3><blockquote>
+<p>思路如下:</p>
+</blockquote>
+<p>#数据结构与算法/链表</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>02.数组</title>
+    <url>/2020/02/24/02-%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="02-数组"><a href="#02-数组" class="headerlink" title="02.数组"></a>02.数组</h1><blockquote>
+<p>内容概要<br>1). 概念<br>2). 数组的删除与插入操作<br>3). Leetcode：两数之和<br>4). 稀疏数组解决五子棋问题</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p><code>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据。</code></p>
+<blockquote>
+<p>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据<br>1). 线性表：数据像线一样排列，只有前后两个方向<br>2). 连续的内存空间和相同类型的数据：适合随机访问，根据下标访问<br>3). 低效的删除和插入</p>
+</blockquote>
+<h2 id="2-数组的删除和插入"><a href="#2-数组的删除和插入" class="headerlink" title="2.数组的删除和插入"></a>2.数组的删除和插入</h2><blockquote>
+<p><code>数组的插入和删除比较低效，有哪些改进办法呢？</code></p>
+</blockquote>
+<h3 id="2-1-插入操作"><a href="#2-1-插入操作" class="headerlink" title="2.1.插入操作"></a>2.1.插入操作</h3><p>因为数组是有序的，因此插入的时候，需要移动元素，若插入最后一个元素，则不需要移动，插入第一个元素，则需要移动n次，因此时间复杂度为<br>O(n)<br><strong><em>如何优化?</em></strong><br>若不考虑数组的有序性，则可以将插入位置的数据，移动到最后一个位置，将待插入数据插入指定位置即可，如下图<br>将字母c移动到最后一个位置,此时时间复杂度会变为O(1)<br> <img src="https://tva1.sinaimg.cn/large/0082zybply1gc1tc1v7rkj30vq0e7q3h.jpg" alt=""></p>
+<h3 id="2-2-删除操作"><a href="#2-2-删除操作" class="headerlink" title="2.2.删除操作"></a>2.2.删除操作</h3><p>为了保证数组的连续性，删除数据时同样要移动数据，时间复杂度也是O(n)</p>
+<p><strong><em>如何优化?</em></strong><br>如果不考虑数组的连续性，可以先将删除的数据标记，等数组空间不够用时候，再全部清除，这样可以大大减少数据移动的操作。<br>和JVM中的标记清除算法思想一样。</p>
+<h2 id="3-引入案例"><a href="#3-引入案例" class="headerlink" title="3.引入案例"></a>3.引入案例</h2><h3 id="3-1-leetcode"><a href="#3-1-leetcode" class="headerlink" title="3.1.leetcode"></a>3.1.leetcode</h3><blockquote>
+<p>leetcode: <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">力扣</a> 两数之和</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        map.put(nums[I],i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp &#x3D; target - nums[I];</span><br><span class="line"></span><br><span class="line">        if (map.containsKey(temp) &amp;&amp; map.get(temp)!&#x3D;i)&#123;</span><br><span class="line">            return new int[]&#123;i,map.get(temp)&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    throw new ArithmeticException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用hashmap</p>
+<h3 id="3-2-稀疏数组"><a href="#3-2-稀疏数组" class="headerlink" title="3.2.稀疏数组"></a>3.2.稀疏数组</h3><blockquote>
+<p>编写的五子棋程序中，有存盘退出和续上盘的功能。 由于数组中很多位置为0，因此引入稀疏数组</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzlqhf5m5j317m0f8ndk.jpg" alt=""></p>
+<ol>
+<li><p>概念</p>
+<blockquote>
+<p>当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。<br>稀疏数组的处理方法是:<br>1) 记录数组一共有几行几列，有多少个不同的值<br>2) 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模  </p>
+</blockquote>
+</li>
+<li><p>应用案例</p>
+<blockquote>
+<p>应用案例说明<br>1) 使用稀疏数组存储棋盘(二维数组)<br>2) 把稀疏数组还原为原来二维数组</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzm67m8x9j30yg0kse1p.jpg" alt=""></p>
+</blockquote>
+<p>如下图：</p>
+<ul>
+<li>value=1：黑色棋子</li>
+<li>value=2：蓝色棋子<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzpi51ti8j31900f0qhh.jpg" alt=""></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">稀疏数组中存储3列，</span><br><span class="line">	第一行中：第一列代表棋盘的行数，第二列代表棋盘的列数，第三列代表棋盘中的值</span><br><span class="line">  其他行： 第一列代表棋子横坐标，第二列代表棋子纵坐标，第三列代表值</span><br><span class="line"></span><br><span class="line">二维数组转稀疏数组</span><br><span class="line">1).获取棋子个数sum</span><br><span class="line">2).根据sum值创建稀疏数组，int []arr &#x3D; new int[sum+1][3];</span><br><span class="line">3).填充值：将棋盘中有效数据写入稀疏数组</span><br><span class="line"></span><br><span class="line">稀疏数组转二维数组</span><br><span class="line">1). 创建二维数组，稀疏数组中第一行分别代表棋盘的行数，列数以及棋子的个数</span><br><span class="line">			int []chessArr &#x3D; new int[ sparseArr[0][0] ][ sparseArr[0][1] ]</span><br><span class="line">2). 填充值：从第二行开始，第一列：棋子所在横坐标，第二列：棋子所在纵坐标，第三列：棋子的值</span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>代码实现<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.data.learn;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 稀疏数组的应用</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Data_01 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;初始化棋盘</span><br><span class="line">        int chessArr[][] &#x3D; initChess();</span><br><span class="line">        System.out.println(“创建稀疏数组：”);</span><br><span class="line">        int sparseArr[][] &#x3D; createSparse(chessArr);</span><br><span class="line">        System.out.println(“还原为棋盘：”);</span><br><span class="line">        int chess[][] &#x3D; transfer(sparseArr);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 将稀疏数组还原</span><br><span class="line">     * @param sparseArr</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static int[][] transfer(int[][] sparseArr) &#123;</span><br><span class="line">        &#x2F;&#x2F;1、第一行中的第1，2，3个元素，分别代表棋盘的长，宽，以及棋盘个数</span><br><span class="line">        int [][]chessArr &#x3D; new int[sparseArr[0][0]][sparseArr[0][1]];</span><br><span class="line">        &#x2F;&#x2F;2.从第二行开始读取稀疏数组的值，其中每行第一个值为x坐标，第二个值为y坐标，第3个值为棋子的值</span><br><span class="line">        for (int i&#x3D;1;i&lt; sparseArr.length;i++)&#123;&#x2F;&#x2F;从第2行开始</span><br><span class="line">            for (int j&#x3D;0;j&lt;sparseArr[i].length;j++)&#123;</span><br><span class="line">                int x &#x3D; sparseArr[i][0];</span><br><span class="line">                int y &#x3D; sparseArr[i][1];</span><br><span class="line">                int val &#x3D; sparseArr[i][2];</span><br><span class="line">                chessArr[x][y] &#x3D; val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(chessArr);</span><br><span class="line">        return chessArr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;将二维数组转换为稀疏数组稀疏数组</span><br><span class="line">    private static int[][] createSparse(int chessArr[][]) &#123;</span><br><span class="line">        int sum&#x3D;0;&#x2F;&#x2F;计算棋盘中棋子的个数</span><br><span class="line">        for (int[] arr:chessArr)&#123;</span><br><span class="line">            for (int item:arr)&#123;</span><br><span class="line">                if (item!&#x3D;0)&#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int sparse[][]&#x3D;new int[sum+1][3];</span><br><span class="line">        sparse[0][0] &#x3D; chessArr.length;</span><br><span class="line">        sparse[0][1] &#x3D; chessArr[0].length;</span><br><span class="line">        sparse[0][2] &#x3D; sum;</span><br><span class="line">        int count&#x3D;0;</span><br><span class="line">        for (int i&#x3D;0;i&lt;chessArr.length;i++)&#123;</span><br><span class="line"></span><br><span class="line">            for (int j&#x3D;0;j&lt;chessArr[i].length;j++)&#123;</span><br><span class="line">                if (chessArr[i][j]!&#x3D;0)&#123;&#x2F;&#x2F;获取到的值不为零，则行+1</span><br><span class="line">                    count++;</span><br><span class="line">                   sparse[count][0] &#x3D; i;</span><br><span class="line">                   sparse[count][1] &#x3D; j;</span><br><span class="line">                   sparse[count][2] &#x3D; chessArr[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(sparse);</span><br><span class="line">        return sparse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;初始化棋盘，11*11</span><br><span class="line">    private static int[][] initChess() &#123;</span><br><span class="line">        int chess[][] &#x3D; new int[11][11];</span><br><span class="line">        chess[1][2] &#x3D; 1;</span><br><span class="line">        chess[2][3] &#x3D; 2;</span><br><span class="line">        print(chess);</span><br><span class="line">         return chess;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;打印输出</span><br><span class="line">    private static void print(int arr[][])&#123;</span><br><span class="line">        if (arr.length&#x3D;&#x3D;0)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int[] arr1:arr)&#123;</span><br><span class="line">            for (int item:arr1)&#123;</span><br><span class="line">                System.out.print(&quot; &quot;+item);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ol>
+<p>#数据结构与算法/数组</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>01.数据结构与算法概述</title>
+    <url>/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h1 id="01-数据结构与算法概述"><a href="#01-数据结构与算法概述" class="headerlink" title="01.数据结构与算法概述"></a>01.数据结构与算法概述</h1><blockquote>
+<p>本节内容概要</p>
+<ol>
+<li>数据结构及算法概念以及用途</li>
+<li>数据结构分类</li>
+<li>算法的5大特征</li>
+<li>算法的时间复杂度与空间复杂度</li>
+</ol>
+</blockquote>
+<h2 id="1-1、概念"><a href="#1-1、概念" class="headerlink" title="1.1、概念"></a>1.1、概念</h2><blockquote>
+<p>1）. 数据结构是一门研究数据组织方式的学科，可以帮助我们写出高效优雅的代码。选择适当的数据结构可以提高程序的执行效率(时间复杂度)和存储效率（空间复杂度）<br>2). 算法是用来操作数据的一种方法，解决某个问题的计算方法、步骤。<br><font color=red><strong>数据结构是为算法服务的，算法要作用在特定的数据结构之上</strong></font><br>程序=数据结构+算法</p>
+</blockquote>
+<h2 id="1-2、数据结构分类"><a href="#1-2、数据结构分类" class="headerlink" title="1.2、数据结构分类"></a>1.2、数据结构分类</h2><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gc0g2whoxvj30lb08yt9o.jpg" alt=""></p>
+<blockquote>
+<p>1). 线性结构: 简单的前后关系: 数组、链表、队列和栈<br>2). 树结构：普通树、二叉树<br>3). 图结构:<br>和非线性结构</p>
+</blockquote>
+<ul>
+<li><p>线性结构：一对一的关系</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1） 线性结构作为最常用的数据结构，其特点是数据元素之间存在一对一的线性关系  2） 线性结构有两种不同的存储结构，即顺序存储结构(数组)和链式存储结构(链表)。顺序存储的线性表称为顺序表，顺序表中的存储元素是连续的</span><br><span class="line">3)  链式存储的线性表称为链表，链表中的存储元素不一定是连续的，元素节点中存放数据元素以及相邻元素的地址信息</span><br><span class="line">4） 线性结构常见的有:数组、链表、队列和栈</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>树结构：一对多的关系</p>
+<ul>
+<li>普通树、二叉树<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5gdig1j307s06n74g.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>图：适合存储多对多的关系<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5p8nezj308c071jrk.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="1-3、-算法的五大特征"><a href="#1-3、-算法的五大特征" class="headerlink" title="1.3、 算法的五大特征"></a>1.3、 算法的五大特征</h2><ul>
+<li><ol>
+<li>有穷性：一个算法必须保证可以结束，也即经历一些有限步会结束</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>确定性：算法的每个步骤都应该被精确定义，即同样的输入，输出的结果也一样</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>输入  ：即参数，算法可以有0或者多个输入，即可以有0或者多个参数</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>输出  ：算法必须有输出，即有0或者多个输出</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>可行性: 算法的每一步都是可行的，即可以实现的</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-3、时间复杂度与空间复杂度"><a href="#1-3、时间复杂度与空间复杂度" class="headerlink" title="1.3、时间复杂度与空间复杂度"></a>1.3、时间复杂度与空间复杂度</h2><blockquote>
+<p>::<strong>时间复杂度</strong>::： 是一个 <a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">函数</a> ，它用来描述该算法的运行时间。通常用O()函数来表示算法的变化趋势</p>
+</blockquote>
+<h3 id="1-3-1、如何计算时间复杂度"><a href="#1-3-1、如何计算时间复杂度" class="headerlink" title="1.3.1、如何计算时间复杂度"></a>1.3.1、如何计算时间复杂度</h3><p><strong><code>我们在分析一个算法、一段代码的时间复杂度的时候，也只关注循环执行次数最多的那一段代码就可以了</code></strong></p>
+<ul>
+<li><ol>
+<li>只关注执行次数最多的一段代码，如下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int cal(int n) &#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    int I &#x3D; 1;</span><br><span class="line">    for (; I &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">        sum &#x3D; sum + I;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+我们只关注执行次数最多的for循环，执行了n次，因此这段代码的时间复杂度为<font color=red><strong>O(n)</strong></font></li>
+</ol>
+<ul>
+<li><ol start="2">
+<li>总复杂度=复杂度最高的那段代码的复杂度，如下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int sum_1 &#x3D; 0;</span><br><span class="line">   int p &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;时间复杂度 O(n)</span><br><span class="line">   for (; p &lt; 100; ++p) &#123;</span><br><span class="line">     sum_1 &#x3D; sum_1 + p;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   int sum_2 &#x3D; 0;</span><br><span class="line">   int q &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n)</span><br><span class="line">   for (; q &lt; n; ++q) &#123;</span><br><span class="line">     sum_2 &#x3D; sum_2 + q;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   int sum_3 &#x3D; 0;</span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   int j &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n^2)   </span><br><span class="line">for (; i &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">     j &#x3D; 1; </span><br><span class="line">     for (; j &lt;&#x3D; n; ++j) &#123;</span><br><span class="line">       sum_3 &#x3D; sum_3 +  i * j;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return sum_1 + sum_2 + sum_3;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+以上代码的时间复杂度按照最多的<font color=red><strong>O(n^2)</strong></font></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><ol start="3">
+<li>乘法法则: 嵌套代码时间复杂度 = 内外嵌套代码时间复杂度的乘积<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; O(n)</span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int ret &#x3D; 0; </span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   for (; i &lt; n; ++i) &#123;</span><br><span class="line">     ret &#x3D; ret + f(i);</span><br><span class="line">   &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> &#x2F;&#x2F;O(n)</span><br><span class="line"> int f(int n) &#123;</span><br><span class="line">  int sum &#x3D; 0;</span><br><span class="line">  int i &#x3D; 1;</span><br><span class="line">  for (; i &lt; n; ++i) &#123;</span><br><span class="line">    sum &#x3D; sum + i;</span><br><span class="line">  &#125; </span><br><span class="line">  return sum;</span><br><span class="line"> &#125;</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">上面代码的时间复杂度 &#x3D; O(n) * O(n) &#x3D; O(n^2)</span><br><span class="line">- 4.平均时间复杂度：因为最好和最坏情况不一样，所以会出现一个平均时间复杂度,如</span><br></pre></td></tr></table></figure>
+要查找的变量 x 在数组中的位置，有 n+1 种情况：在数组的 0～n-1 位置中和不在数组中,<pre><code>![](https://tva1.sinaimg.cn/large/0082zybply1gc1t5wf4zcj30vm05y0t3.jpg)
+
+
+</code></pre></li>
+</ol>
+</li>
+</ul>
+<h3 id="1-3-2、时间复杂度分类"><a href="#1-3-2、时间复杂度分类" class="headerlink" title="1.3.2、时间复杂度分类"></a>1.3.2、时间复杂度分类</h3><p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0tqcdfm4j313c0pq777.jpg" alt=""><br>[file:D219232D-1891-41A9-B9A9-0B607508E0A9-20504-0000CB6141584E2F/时间复杂度.xmind]</p>
+<blockquote>
+<p>时间复杂度耗时： O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n²)&lt;O(n³)&lt;O(2ⁿ)&lt;O(n!)</p>
+</blockquote>
+<p>#数据结构与算法/时间复杂度</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>时间复杂度</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>00.数据结构与算法大纲.md</title>
+    <url>/2020/02/24/00-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/</url>
     <content><![CDATA[<h1 id="00-大纲及参考"><a href="#00-大纲及参考" class="headerlink" title="00.大纲及参考"></a>00.大纲及参考</h1><p><a href="[数据结构概述](http://data.biancheng.net/intro/)">参考文档</a></p>
 <p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0sms3w2gj30u01tatkk.jpg" alt=""></p>
 <p>#数据结构与算法</p>

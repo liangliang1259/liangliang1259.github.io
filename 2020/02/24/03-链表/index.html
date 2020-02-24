@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    数据结构与算法大纲.md |  阿亮
+    03.链表 |  阿亮
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -32,7 +32,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-数据结构与算法大纲" class="article article-type-post" itemscope
+  <article id="post-03-链表" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -40,7 +40,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  数据结构与算法大纲.md
+  03.链表
 </h1>
   
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/" class="article-date">
-  <time datetime="2020-02-24T09:57:35.000Z" itemprop="datePublished">2020-02-24</time>
+      <a href="/2020/02/24/03-%E9%93%BE%E8%A1%A8/" class="article-date">
+  <time datetime="2020-02-24T10:44:11.000Z" itemprop="datePublished">2020-02-24</time>
 </a>
       
   <div class="article-category">
@@ -64,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">17字</span>
+            <span class="post-count">525字</span>
         </span>
     </span>
 
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -84,6 +84,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -98,9 +100,80 @@
       
 
       
-      <h1 id="00-大纲及参考"><a href="#00-大纲及参考" class="headerlink" title="00.大纲及参考"></a>00.大纲及参考</h1><p><a href="[数据结构概述](http://data.biancheng.net/intro/)">参考文档</a></p>
-<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0sms3w2gj30u01tatkk.jpg" alt=""></p>
-<p>#数据结构与算法</p>
+      <h1 id="03-链表"><a href="#03-链表" class="headerlink" title="03.链表"></a>03.链表</h1><blockquote>
+<p>内容概要<br>1). 链表的概念<br>2). 链表分类<br>3). 链表的代码实现</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><blockquote>
+<p>1). 链表同数组一样也是线性表,从内存结构来说，链表是一段不连续的内存空间,通过指针将数据连接起来，用于存储一对一的关系<br>2). 链表适用于添加删除元素比较多的数据存储。</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1xx1ano5j30vq0jf0ub.jpg" alt=""></p>
+<p>::<strong>链表与数组的区别</strong>::</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间连续性</td>
+<td>连续</td>
+<td>不连续，通过指针组织成一个链表</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>随机访问</td>
+<td>添加，删除</td>
+</tr>
+<tr>
+<td>特性</td>
+<td>添加删除需要移动元素，只适合查询和修改</td>
+<td>添加删除不移动元素，不适合查询和修改</td>
+</tr>
+</tbody></table>
+<h2 id="2-链表的分类"><a href="#2-链表的分类" class="headerlink" title="2.链表的分类"></a>2.链表的分类</h2><blockquote>
+<p>Node节点代码如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 单链表的反转</span><br><span class="line"> * 思路：</span><br><span class="line"> *  单链表有head属性，next属性，data属性</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Node&lt;E&gt; &#123;</span><br><span class="line">    private E data;</span><br><span class="line">    public Node next;</span><br><span class="line"></span><br><span class="line">    public Node(E data) &#123;</span><br><span class="line">        this.data &#x3D; data;</span><br><span class="line">    &#125;</span><br><span class="line">    public E getData() &#123;</span><br><span class="line">        return data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-单链表"><a href="#2-1-单链表" class="headerlink" title="2.1 单链表:"></a>2.1 单链表:</h3><h4 id="a-定义"><a href="#a-定义" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>除了存储数据之外，还要存储下个节点的指针，特殊节点：头节点前一个节点没有，尾节点的next指向null<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1y7uowkfj30vq0b3js6.jpg" alt=""><br>[image:BC1C2715-A2FD-49CD-AF85-B84AA8361CCB-25059-00010DD68D537F95/b93e7ade9bb927baad1348d9a806ddeb.jpg]</p>
+</blockquote>
+<h4 id="b-单链表的添加删除操作"><a href="#b-单链表的添加删除操作" class="headerlink" title="b). 单链表的添加删除操作"></a>b). 单链表的添加删除操作</h4><ol>
+<li>图示： [image:30206742-437D-471F-9BEF-FFB0C471C478-25059-00010E2BD5666F09/452e943788bdeea462d364389bd08a17.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ydxpxllj30vq0i275j.jpg" alt=""></li>
+<li>代码示意<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- [ ]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="2-2-循环链表"><a href="#2-2-循环链表" class="headerlink" title="2.2. 循环链表"></a>2.2. 循环链表</h3><h4 id="a-定义-1"><a href="#a-定义-1" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>特殊的单链表，链表的尾节点的next指向头节点<br>优点：从链尾到链头比较方便</p>
+</blockquote>
+<p>[image:B5233099-4895-43C8-B5E0-B3E28B1A9333-25059-00010E64EAB94A41/86cb7dc331ea958b0a108b911f38d155.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1yiex9jrj30vq0b3js3.jpg" alt=""></p>
+<h4 id="b-代码实现"><a href="#b-代码实现" class="headerlink" title="b). 代码实现"></a>b). 代码实现</h4><blockquote>
+<p>循环链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3-双向链表"><a href="#2-3-双向链表" class="headerlink" title="2.3.双向链表"></a>2.3.双向链表</h3><p><font color=red>LinkedList是双向链表</font></p>
+<h4 id="a-定义-2"><a href="#a-定义-2" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>双向链表支持两个方向,比单链表多了一个pre指针,指向前一个节点，因此双向链表占用空间比单链表更多<br>多了一个前驱节点，支持双向遍历<br>[image:D6135725-4141-4B4C-956D-9C9B3467F9C9-25059-00010E8DFAFB8E52/cbc8ab20276e2f9312030c313a9ef70b.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ylhnillj30vq0b3js8.jpg" alt=""></p>
+</blockquote>
+<h4 id="b-代码"><a href="#b-代码" class="headerlink" title="b). 代码"></a>b). 代码</h4><blockquote>
+<p>双向链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-应用实例"><a href="#3-应用实例" class="headerlink" title="3. 应用实例"></a>3. 应用实例</h2><h3 id="3-1-LRU缓存"><a href="#3-1-LRU缓存" class="headerlink" title="3.1. LRU缓存"></a>3.1. LRU缓存</h3><blockquote>
+<p>思路如下:</p>
+</blockquote>
+<p>#数据结构与算法/链表</p>
 
       
       <!-- reward -->
@@ -170,14 +243,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/02/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/02/24/03-%E9%93%BE%E8%A1%A8/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
 
 
     </footer>
@@ -188,10 +261,19 @@
   
   <nav class="article-nav">
     
+      <a href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            关于我
+          
+        </div>
+      </a>
     
-      <a href="/2020/02/21/hello-world/" class="article-nav-link">
+    
+      <a href="/2020/02/24/02-%E6%95%B0%E7%BB%84/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+        <div class="article-nav-title">02.数组</div>
       </a>
     
   </nav>
@@ -336,7 +418,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/">关于我</a>
     </li>
     
   </ul>
