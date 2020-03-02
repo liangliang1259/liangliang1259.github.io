@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     阿亮
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="阿亮" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/liangliang1259"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">阿亮</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article id="post-01-面试篇之消息队列" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/02/01-%E9%9D%A2%E8%AF%95%E7%AF%87%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"
+    >01-面试篇之消息队列</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/02/01-%E9%9D%A2%E8%AF%95%E7%AF%87%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="article-date">
+  <time datetime="2020-03-02T12:42:25.000Z" itemprop="datePublished">2020-03-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="1-MQ的应用场景"><a href="#1-MQ的应用场景" class="headerlink" title="1.MQ的应用场景"></a>1.MQ的应用场景</h2><p><a href="https://www.jianguoyun.com/p/DQwCIxEQsJCICBidwugC" target="_blank" rel="noopener">导读-xmind</a></p>
+<h3 id="1-1-解耦"><a href="#1-1-解耦" class="headerlink" title="1.1.解耦"></a>1.1.解耦</h3><ul>
+<li>智能客服系统中，企业注册完成后，需要完成一系列初始化操作，如创建es的索引，创建默认的一些数据</li>
+<li>发短信<h3 id="1-2-异步"><a href="#1-2-异步" class="headerlink" title="1.2.异步"></a>1.2.异步</h3>减少耗时，异步下单操作，接收到参数之后写入mq，通过多个节点去下单，然后websocket推送结果(参数中带有clientid)<h3 id="1-3-削峰"><a href="#1-3-削峰" class="headerlink" title="1.3.削峰"></a>1.3.削峰</h3>高并发场景排队</li>
+</ul>
+<h2 id="2-技术选型"><a href="#2-技术选型" class="headerlink" title="2.技术选型"></a>2.技术选型</h2><table>
+<thead>
+<tr>
+<th>mq</th>
+<th>优势</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RabbitMQ</td>
+<td>erlang语言开发，无法二次维护，稳定及社区活跃度比较高</td>
+<td></td>
+</tr>
+<tr>
+<td>RocketMQ</td>
+<td>java，阿里系，可二度开发</td>
+<td></td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>高吞吐量，一般的日志，海量数据传输使用</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>我们选择rabbitmq的原因是，系统比较稳定，社区维护性比较高，国内的开源项目多为kap项目，如dubbo</p>
+<h2 id="3-引入mq会带来哪些问题"><a href="#3-引入mq会带来哪些问题" class="headerlink" title="3.引入mq会带来哪些问题"></a>3.引入mq会带来哪些问题</h2><ul>
+<li>一致性问题：若A系统向B、C、D系统发消息，某个消息失败会导致数据不一致</li>
+<li>系统可用性降低：若MQ出现问题，会导致系统不可用</li>
+<li>系统复杂度提高：</li>
+</ul>
+<h2 id="4-高可用"><a href="#4-高可用" class="headerlink" title="4.高可用"></a>4.高可用</h2><h3 id="4-1、RabbitMQ"><a href="#4-1、RabbitMQ" class="headerlink" title="4.1、RabbitMQ"></a>4.1、RabbitMQ</h3><ul>
+<li><p>单机模式</p>
+</li>
+<li><p>普通集群<br><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcbvma9qiaj30rc0kwmyi.jpg" alt=""><br>queue会存在某个集群中，其他机器上存储的是该机器queue的配置信息(如ip等)。如上图，若client连接到了实例C中要访问位于实例B中的queue2时，就会由实例C和实例B进行通信。<br><strong>缺点</strong></p>
+<blockquote>
+<p>内部大量的数据传输，可靠性无法保证</p>
+</blockquote>
+</li>
+<li><p>镜像集群<br><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcbvv3bihrj30tc0jidh8.jpg" alt=""><br>生产者写入指定queue之后会同步给其他节点，任何一个节点都拥有全部完整的数据。<br><strong>缺点</strong></p>
+</li>
+<li><p>非分布式。容量过大，造成浪费，每个节点存储所有一样的数据。</p>
+</li>
+</ul>
+<h3 id="4-2-Kafka"><a href="#4-2-Kafka" class="headerlink" title="4.2.Kafka"></a>4.2.Kafka</h3><p>kafka-broker的副本，如broker1与broker2中有一个leader，一个broker，数据完全一致，leader负责读写</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gce8k6plq2j30m90j1gml.jpg" alt=""></p>
+<h2 id="5-面试题集锦"><a href="#5-面试题集锦" class="headerlink" title="5.面试题集锦"></a>5.面试题集锦</h2><h3 id="5-1-如何保证Kafka消息不被重复消费-幂等性"><a href="#5-1-如何保证Kafka消息不被重复消费-幂等性" class="headerlink" title="5.1.如何保证Kafka消息不被重复消费(幂等性)?"></a>5.1.如何保证Kafka消息不被重复消费(幂等性)?</h3><ul>
+<li>产生原因：consumer准备提交offset的时候，进程挂掉了</li>
+<li>解决方案：添加判断逻辑，判断消息是否已被消费，比如msg_id，通过redis的set判断。或者mysql设置唯一键，若已被消费，则丢弃该消息</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gce9aj3f2pj31qy0q6u0x.jpg" alt=""></p>
+<p>[image:1C068E04-194F-4D9B-87B2-6354E14A6A2A-1207-0000025C8675ED72/00831rSTly1gce9aj3f2pj31qy0q6u0x.jpg]</p>
+<h3 id="5-2-如何保障Kafka消息的顺序性？"><a href="#5-2-如何保障Kafka消息的顺序性？" class="headerlink" title="5.2.如何保障Kafka消息的顺序性？"></a>5.2.如何保障Kafka消息的顺序性？</h3><blockquote>
+<p>kafka保证topic中的每个partition都是有序的，(每个Topic中可能包含多个partition),这个时候要保障有序，就要保障需要有序的数据写入一个partition</p>
+</blockquote>
+<ul>
+<li>业务数据有序，比如同一个order_id的数据有序，可以按照order_id进行设置partition，以因为同一个partition肯定被同一个consumer消费</li>
+<li>若是所有数据都要求有序，则需要设置partition为1</li>
+<li>若消费端多个线程去获取数据，还要求顺序一致，则可以按照业务id进行hash放入同一个内存队列</li>
+</ul>
+<h3 id="5-3-如何保障消息不丢失？"><a href="#5-3-如何保障消息不丢失？" class="headerlink" title="5.3.如何保障消息不丢失？"></a>5.3.如何保障消息不丢失？</h3><blockquote>
+<p>消息丢失有3个地方，1.producer未写入，2.kafka内部异常,3.consumer未处理</p>
+</blockquote>
+<ul>
+<li>关闭自动提交offset，改为手动提交</li>
+<li>partition副本保障至少有2个，leader宕机的时候还有备份</li>
+<li>acks=all，所有副本写入成功才算成功。</li>
+</ul>
+<h3 id="5-4-Kafka消息积压问题"><a href="#5-4-Kafka消息积压问题" class="headerlink" title="5.4.Kafka消息积压问题"></a>5.4.Kafka消息积压问题</h3><ul>
+<li>消费能力不足的问题的话，增加partition,同时增加消费者，即添加服务器</li>
+<li>或者上线临时服务器，将消息临时处理，比如我可以再次写会kafka，等待消费端再次消费</li>
+</ul>
+<p>#面经</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-关于我" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/"
+    >关于我</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/" class="article-date">
+  <time datetime="2020-02-24T10:47:02.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/about/">about</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>程序员阿亮</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-03-链表" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/24/03-%E9%93%BE%E8%A1%A8/"
+    >03.链表</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/03-%E9%93%BE%E8%A1%A8/" class="article-date">
+  <time datetime="2020-02-24T10:44:11.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="03-链表"><a href="#03-链表" class="headerlink" title="03.链表"></a>03.链表</h1><blockquote>
+<p>内容概要<br>1). 链表的概念<br>2). 链表分类<br>3). 链表的代码实现</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><blockquote>
+<p>1). 链表同数组一样也是线性表,从内存结构来说，链表是一段不连续的内存空间,通过指针将数据连接起来，用于存储一对一的关系<br>2). 链表适用于添加删除元素比较多的数据存储。</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1xx1ano5j30vq0jf0ub.jpg" alt=""></p>
+<p>::<strong>链表与数组的区别</strong>::</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间连续性</td>
+<td>连续</td>
+<td>不连续，通过指针组织成一个链表</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>随机访问</td>
+<td>添加，删除</td>
+</tr>
+<tr>
+<td>特性</td>
+<td>添加删除需要移动元素，只适合查询和修改</td>
+<td>添加删除不移动元素，不适合查询和修改</td>
+</tr>
+</tbody></table>
+<h2 id="2-链表的分类"><a href="#2-链表的分类" class="headerlink" title="2.链表的分类"></a>2.链表的分类</h2><blockquote>
+<p>Node节点代码如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 单链表的反转</span><br><span class="line"> * 思路：</span><br><span class="line"> *  单链表有head属性，next属性，data属性</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Node&lt;E&gt; &#123;</span><br><span class="line">    private E data;</span><br><span class="line">    public Node next;</span><br><span class="line"></span><br><span class="line">    public Node(E data) &#123;</span><br><span class="line">        this.data &#x3D; data;</span><br><span class="line">    &#125;</span><br><span class="line">    public E getData() &#123;</span><br><span class="line">        return data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-单链表"><a href="#2-1-单链表" class="headerlink" title="2.1 单链表:"></a>2.1 单链表:</h3><h4 id="a-定义"><a href="#a-定义" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>除了存储数据之外，还要存储下个节点的指针，特殊节点：头节点前一个节点没有，尾节点的next指向null<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1y7uowkfj30vq0b3js6.jpg" alt=""><br>[image:BC1C2715-A2FD-49CD-AF85-B84AA8361CCB-25059-00010DD68D537F95/b93e7ade9bb927baad1348d9a806ddeb.jpg]</p>
+</blockquote>
+<h4 id="b-单链表的添加删除操作"><a href="#b-单链表的添加删除操作" class="headerlink" title="b). 单链表的添加删除操作"></a>b). 单链表的添加删除操作</h4><ol>
+<li>图示： [image:30206742-437D-471F-9BEF-FFB0C471C478-25059-00010E2BD5666F09/452e943788bdeea462d364389bd08a17.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ydxpxllj30vq0i275j.jpg" alt=""></li>
+<li>代码示意<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- [ ]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="2-2-循环链表"><a href="#2-2-循环链表" class="headerlink" title="2.2. 循环链表"></a>2.2. 循环链表</h3><h4 id="a-定义-1"><a href="#a-定义-1" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>特殊的单链表，链表的尾节点的next指向头节点<br>优点：从链尾到链头比较方便</p>
+</blockquote>
+<p>[image:B5233099-4895-43C8-B5E0-B3E28B1A9333-25059-00010E64EAB94A41/86cb7dc331ea958b0a108b911f38d155.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1yiex9jrj30vq0b3js3.jpg" alt=""></p>
+<h4 id="b-代码实现"><a href="#b-代码实现" class="headerlink" title="b). 代码实现"></a>b). 代码实现</h4><blockquote>
+<p>循环链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3-双向链表"><a href="#2-3-双向链表" class="headerlink" title="2.3.双向链表"></a>2.3.双向链表</h3><p><font color=red>LinkedList是双向链表</font></p>
+<h4 id="a-定义-2"><a href="#a-定义-2" class="headerlink" title="a). 定义"></a>a). 定义</h4><blockquote>
+<p>双向链表支持两个方向,比单链表多了一个pre指针,指向前一个节点，因此双向链表占用空间比单链表更多<br>多了一个前驱节点，支持双向遍历<br>[image:D6135725-4141-4B4C-956D-9C9B3467F9C9-25059-00010E8DFAFB8E52/cbc8ab20276e2f9312030c313a9ef70b.jpg]<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc1ylhnillj30vq0b3js8.jpg" alt=""></p>
+</blockquote>
+<h4 id="b-代码"><a href="#b-代码" class="headerlink" title="b). 代码"></a>b). 代码</h4><blockquote>
+<p>双向链表的添加删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-应用实例"><a href="#3-应用实例" class="headerlink" title="3. 应用实例"></a>3. 应用实例</h2><h3 id="3-1-LRU缓存"><a href="#3-1-LRU缓存" class="headerlink" title="3.1. LRU缓存"></a>3.1. LRU缓存</h3><blockquote>
+<p>思路如下:</p>
+</blockquote>
+<p>#数据结构与算法/链表</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-02-数组" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/24/02-%E6%95%B0%E7%BB%84/"
+    >02.数组</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/02-%E6%95%B0%E7%BB%84/" class="article-date">
+  <time datetime="2020-02-24T10:43:23.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="02-数组"><a href="#02-数组" class="headerlink" title="02.数组"></a>02.数组</h1><blockquote>
+<p>内容概要<br>1). 概念<br>2). 数组的删除与插入操作<br>3). Leetcode：两数之和<br>4). 稀疏数组解决五子棋问题</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p><code>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据。</code></p>
+<blockquote>
+<p>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据<br>1). 线性表：数据像线一样排列，只有前后两个方向<br>2). 连续的内存空间和相同类型的数据：适合随机访问，根据下标访问<br>3). 低效的删除和插入</p>
+</blockquote>
+<h2 id="2-数组的删除和插入"><a href="#2-数组的删除和插入" class="headerlink" title="2.数组的删除和插入"></a>2.数组的删除和插入</h2><blockquote>
+<p><code>数组的插入和删除比较低效，有哪些改进办法呢？</code></p>
+</blockquote>
+<h3 id="2-1-插入操作"><a href="#2-1-插入操作" class="headerlink" title="2.1.插入操作"></a>2.1.插入操作</h3><p>因为数组是有序的，因此插入的时候，需要移动元素，若插入最后一个元素，则不需要移动，插入第一个元素，则需要移动n次，因此时间复杂度为<br>O(n)<br><strong><em>如何优化?</em></strong><br>若不考虑数组的有序性，则可以将插入位置的数据，移动到最后一个位置，将待插入数据插入指定位置即可，如下图<br>将字母c移动到最后一个位置,此时时间复杂度会变为O(1)<br> <img src="https://tva1.sinaimg.cn/large/0082zybply1gc1tc1v7rkj30vq0e7q3h.jpg" alt=""></p>
+<h3 id="2-2-删除操作"><a href="#2-2-删除操作" class="headerlink" title="2.2.删除操作"></a>2.2.删除操作</h3><p>为了保证数组的连续性，删除数据时同样要移动数据，时间复杂度也是O(n)</p>
+<p><strong><em>如何优化?</em></strong><br>如果不考虑数组的连续性，可以先将删除的数据标记，等数组空间不够用时候，再全部清除，这样可以大大减少数据移动的操作。<br>和JVM中的标记清除算法思想一样。</p>
+<h2 id="3-引入案例"><a href="#3-引入案例" class="headerlink" title="3.引入案例"></a>3.引入案例</h2><h3 id="3-1-leetcode"><a href="#3-1-leetcode" class="headerlink" title="3.1.leetcode"></a>3.1.leetcode</h3><blockquote>
+<p>leetcode: <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">力扣</a> 两数之和</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        map.put(nums[I],i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp &#x3D; target - nums[I];</span><br><span class="line"></span><br><span class="line">        if (map.containsKey(temp) &amp;&amp; map.get(temp)!&#x3D;i)&#123;</span><br><span class="line">            return new int[]&#123;i,map.get(temp)&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    throw new ArithmeticException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用hashmap</p>
+<h3 id="3-2-稀疏数组"><a href="#3-2-稀疏数组" class="headerlink" title="3.2.稀疏数组"></a>3.2.稀疏数组</h3><blockquote>
+<p>编写的五子棋程序中，有存盘退出和续上盘的功能。 由于数组中很多位置为0，因此引入稀疏数组</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzlqhf5m5j317m0f8ndk.jpg" alt=""></p>
+<ol>
+<li><p>概念</p>
+<blockquote>
+<p>当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。<br>稀疏数组的处理方法是:<br>1) 记录数组一共有几行几列，有多少个不同的值<br>2) 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模  </p>
+</blockquote>
+</li>
+<li><p>应用案例</p>
+<blockquote>
+<p>应用案例说明<br>1) 使用稀疏数组存储棋盘(二维数组)<br>2) 把稀疏数组还原为原来二维数组</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzm67m8x9j30yg0kse1p.jpg" alt=""></p>
+</blockquote>
+<p>如下图：</p>
+<ul>
+<li>value=1：黑色棋子</li>
+<li>value=2：蓝色棋子<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzpi51ti8j31900f0qhh.jpg" alt=""></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">稀疏数组中存储3列，</span><br><span class="line">	第一行中：第一列代表棋盘的行数，第二列代表棋盘的列数，第三列代表棋盘中的值</span><br><span class="line">  其他行： 第一列代表棋子横坐标，第二列代表棋子纵坐标，第三列代表值</span><br><span class="line"></span><br><span class="line">二维数组转稀疏数组</span><br><span class="line">1).获取棋子个数sum</span><br><span class="line">2).根据sum值创建稀疏数组，int []arr &#x3D; new int[sum+1][3];</span><br><span class="line">3).填充值：将棋盘中有效数据写入稀疏数组</span><br><span class="line"></span><br><span class="line">稀疏数组转二维数组</span><br><span class="line">1). 创建二维数组，稀疏数组中第一行分别代表棋盘的行数，列数以及棋子的个数</span><br><span class="line">			int []chessArr &#x3D; new int[ sparseArr[0][0] ][ sparseArr[0][1] ]</span><br><span class="line">2). 填充值：从第二行开始，第一列：棋子所在横坐标，第二列：棋子所在纵坐标，第三列：棋子的值</span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>代码实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">package com.data.learn;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 稀疏数组的应用</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Data_01 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;初始化棋盘</span><br><span class="line">        int chessArr[][] &#x3D; initChess();</span><br><span class="line">        System.out.println(“创建稀疏数组：”);</span><br><span class="line">        int sparseArr[][] &#x3D; createSparse(chessArr);</span><br><span class="line">        System.out.println(“还原为棋盘：”);</span><br><span class="line">        int chess[][] &#x3D; transfer(sparseArr);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 将稀疏数组还原</span><br><span class="line">     * @param sparseArr</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static int[][] transfer(int[][] sparseArr) &#123;</span><br><span class="line">        &#x2F;&#x2F;1、第一行中的第1，2，3个元素，分别代表棋盘的长，宽，以及棋盘个数</span><br><span class="line">        int [][]chessArr &#x3D; new int[sparseArr[0][0]][sparseArr[0][1]];</span><br><span class="line">        &#x2F;&#x2F;2.从第二行开始读取稀疏数组的值，其中每行第一个值为x坐标，第二个值为y坐标，第3个值为棋子的值</span><br><span class="line">        for (int i&#x3D;1;i&lt; sparseArr.length;i++)&#123;&#x2F;&#x2F;从第2行开始</span><br><span class="line">            for (int j&#x3D;0;j&lt;sparseArr[i].length;j++)&#123;</span><br><span class="line">                int x &#x3D; sparseArr[i][0];</span><br><span class="line">                int y &#x3D; sparseArr[i][1];</span><br><span class="line">                int val &#x3D; sparseArr[i][2];</span><br><span class="line">                chessArr[x][y] &#x3D; val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(chessArr);</span><br><span class="line">        return chessArr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;将二维数组转换为稀疏数组稀疏数组</span><br><span class="line">    private static int[][] createSparse(int chessArr[][]) &#123;</span><br><span class="line">        int sum&#x3D;0;&#x2F;&#x2F;计算棋盘中棋子的个数</span><br><span class="line">        for (int[] arr:chessArr)&#123;</span><br><span class="line">            for (int item:arr)&#123;</span><br><span class="line">                if (item!&#x3D;0)&#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int sparse[][]&#x3D;new int[sum+1][3];</span><br><span class="line">        sparse[0][0] &#x3D; chessArr.length;</span><br><span class="line">        sparse[0][1] &#x3D; chessArr[0].length;</span><br><span class="line">        sparse[0][2] &#x3D; sum;</span><br><span class="line">        int count&#x3D;0;</span><br><span class="line">        for (int i&#x3D;0;i&lt;chessArr.length;i++)&#123;</span><br><span class="line"></span><br><span class="line">            for (int j&#x3D;0;j&lt;chessArr[i].length;j++)&#123;</span><br><span class="line">                if (chessArr[i][j]!&#x3D;0)&#123;&#x2F;&#x2F;获取到的值不为零，则行+1</span><br><span class="line">                    count++;</span><br><span class="line">                   sparse[count][0] &#x3D; i;</span><br><span class="line">                   sparse[count][1] &#x3D; j;</span><br><span class="line">                   sparse[count][2] &#x3D; chessArr[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(sparse);</span><br><span class="line">        return sparse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;初始化棋盘，11*11</span><br><span class="line">    private static int[][] initChess() &#123;</span><br><span class="line">        int chess[][] &#x3D; new int[11][11];</span><br><span class="line">        chess[1][2] &#x3D; 1;</span><br><span class="line">        chess[2][3] &#x3D; 2;</span><br><span class="line">        print(chess);</span><br><span class="line">         return chess;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;打印输出</span><br><span class="line">    private static void print(int arr[][])&#123;</span><br><span class="line">        if (arr.length&#x3D;&#x3D;0)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int[] arr1:arr)&#123;</span><br><span class="line">            for (int item:arr1)&#123;</span><br><span class="line">                System.out.print(&quot; &quot;+item);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ol>
+<p>#数据结构与算法/数组</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-01-数据结构与算法概述" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/"
+    >01.数据结构与算法概述</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2020-02-24T10:39:49.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="01-数据结构与算法概述"><a href="#01-数据结构与算法概述" class="headerlink" title="01.数据结构与算法概述"></a>01.数据结构与算法概述</h1><blockquote>
+<p>本节内容概要</p>
+<ol>
+<li>数据结构及算法概念以及用途</li>
+<li>数据结构分类</li>
+<li>算法的5大特征</li>
+<li>算法的时间复杂度与空间复杂度</li>
+</ol>
+</blockquote>
+<h2 id="1-1、概念"><a href="#1-1、概念" class="headerlink" title="1.1、概念"></a>1.1、概念</h2><blockquote>
+<p>1）. 数据结构是一门研究数据组织方式的学科，可以帮助我们写出高效优雅的代码。选择适当的数据结构可以提高程序的执行效率(时间复杂度)和存储效率（空间复杂度）<br>2). 算法是用来操作数据的一种方法，解决某个问题的计算方法、步骤。<br><font color=red><strong>数据结构是为算法服务的，算法要作用在特定的数据结构之上</strong></font><br>程序=数据结构+算法</p>
+</blockquote>
+<h2 id="1-2、数据结构分类"><a href="#1-2、数据结构分类" class="headerlink" title="1.2、数据结构分类"></a>1.2、数据结构分类</h2><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gc0g2whoxvj30lb08yt9o.jpg" alt=""></p>
+<blockquote>
+<p>1). 线性结构: 简单的前后关系: 数组、链表、队列和栈<br>2). 树结构：普通树、二叉树<br>3). 图结构:<br>和非线性结构</p>
+</blockquote>
+<ul>
+<li><p>线性结构：一对一的关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1） 线性结构作为最常用的数据结构，其特点是数据元素之间存在一对一的线性关系  2） 线性结构有两种不同的存储结构，即顺序存储结构(数组)和链式存储结构(链表)。顺序存储的线性表称为顺序表，顺序表中的存储元素是连续的</span><br><span class="line">3)  链式存储的线性表称为链表，链表中的存储元素不一定是连续的，元素节点中存放数据元素以及相邻元素的地址信息</span><br><span class="line">4） 线性结构常见的有:数组、链表、队列和栈</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>树结构：一对多的关系</p>
+<ul>
+<li>普通树、二叉树<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5gdig1j307s06n74g.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>图：适合存储多对多的关系<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0k5p8nezj308c071jrk.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="1-3、-算法的五大特征"><a href="#1-3、-算法的五大特征" class="headerlink" title="1.3、 算法的五大特征"></a>1.3、 算法的五大特征</h2><ul>
+<li><ol>
+<li>有穷性：一个算法必须保证可以结束，也即经历一些有限步会结束</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>确定性：算法的每个步骤都应该被精确定义，即同样的输入，输出的结果也一样</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>输入  ：即参数，算法可以有0或者多个输入，即可以有0或者多个参数</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>输出  ：算法必须有输出，即有0或者多个输出</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>可行性: 算法的每一步都是可行的，即可以实现的</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-3、时间复杂度与空间复杂度"><a href="#1-3、时间复杂度与空间复杂度" class="headerlink" title="1.3、时间复杂度与空间复杂度"></a>1.3、时间复杂度与空间复杂度</h2><blockquote>
+<p>::<strong>时间复杂度</strong>::： 是一个 <a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">函数</a> ，它用来描述该算法的运行时间。通常用O()函数来表示算法的变化趋势</p>
+</blockquote>
+<h3 id="1-3-1、如何计算时间复杂度"><a href="#1-3-1、如何计算时间复杂度" class="headerlink" title="1.3.1、如何计算时间复杂度"></a>1.3.1、如何计算时间复杂度</h3><p><strong><code>我们在分析一个算法、一段代码的时间复杂度的时候，也只关注循环执行次数最多的那一段代码就可以了</code></strong></p>
+<ul>
+<li><ol>
+<li>只关注执行次数最多的一段代码，如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int cal(int n) &#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    int I &#x3D; 1;</span><br><span class="line">    for (; I &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">        sum &#x3D; sum + I;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+我们只关注执行次数最多的for循环，执行了n次，因此这段代码的时间复杂度为<font color=red><strong>O(n)</strong></font></li>
+</ol>
+<ul>
+<li><ol start="2">
+<li>总复杂度=复杂度最高的那段代码的复杂度，如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int sum_1 &#x3D; 0;</span><br><span class="line">   int p &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;时间复杂度 O(n)</span><br><span class="line">   for (; p &lt; 100; ++p) &#123;</span><br><span class="line">     sum_1 &#x3D; sum_1 + p;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   int sum_2 &#x3D; 0;</span><br><span class="line">   int q &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n)</span><br><span class="line">   for (; q &lt; n; ++q) &#123;</span><br><span class="line">     sum_2 &#x3D; sum_2 + q;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   int sum_3 &#x3D; 0;</span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   int j &#x3D; 1;</span><br><span class="line">&#x2F;&#x2F;O(n^2)   </span><br><span class="line">for (; i &lt;&#x3D; n; ++i) &#123;</span><br><span class="line">     j &#x3D; 1; </span><br><span class="line">     for (; j &lt;&#x3D; n; ++j) &#123;</span><br><span class="line">       sum_3 &#x3D; sum_3 +  i * j;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return sum_1 + sum_2 + sum_3;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+以上代码的时间复杂度按照最多的<font color=red><strong>O(n^2)</strong></font></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><ol start="3">
+<li>乘法法则: 嵌套代码时间复杂度 = 内外嵌套代码时间复杂度的乘积<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; O(n)</span><br><span class="line">int cal(int n) &#123;</span><br><span class="line">   int ret &#x3D; 0; </span><br><span class="line">   int i &#x3D; 1;</span><br><span class="line">   for (; i &lt; n; ++i) &#123;</span><br><span class="line">     ret &#x3D; ret + f(i);</span><br><span class="line">   &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> &#x2F;&#x2F;O(n)</span><br><span class="line"> int f(int n) &#123;</span><br><span class="line">  int sum &#x3D; 0;</span><br><span class="line">  int i &#x3D; 1;</span><br><span class="line">  for (; i &lt; n; ++i) &#123;</span><br><span class="line">    sum &#x3D; sum + i;</span><br><span class="line">  &#125; </span><br><span class="line">  return sum;</span><br><span class="line"> &#125;</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">上面代码的时间复杂度 &#x3D; O(n) * O(n) &#x3D; O(n^2)</span><br><span class="line">- 4.平均时间复杂度：因为最好和最坏情况不一样，所以会出现一个平均时间复杂度,如</span><br></pre></td></tr></table></figure>
+要查找的变量 x 在数组中的位置，有 n+1 种情况：在数组的 0～n-1 位置中和不在数组中,<pre><code>![](https://tva1.sinaimg.cn/large/0082zybply1gc1t5wf4zcj30vm05y0t3.jpg)
+
+
+</code></pre></li>
+</ol>
+</li>
+</ul>
+<h3 id="1-3-2、时间复杂度分类"><a href="#1-3-2、时间复杂度分类" class="headerlink" title="1.3.2、时间复杂度分类"></a>1.3.2、时间复杂度分类</h3><p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0tqcdfm4j313c0pq777.jpg" alt=""><br>[file:D219232D-1891-41A9-B9A9-0B607508E0A9-20504-0000CB6141584E2F/时间复杂度.xmind]</p>
+<blockquote>
+<p>时间复杂度耗时： O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n²)&lt;O(n³)&lt;O(2ⁿ)&lt;O(n!)</p>
+</blockquote>
+<p>#数据结构与算法/时间复杂度</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="tag">时间复杂度</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-00-数据结构与算法大纲" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/24/00-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/"
+    >00.数据结构与算法大纲.md</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/00-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%A4%A7%E7%BA%B2/" class="article-date">
+  <time datetime="2020-02-24T09:57:35.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="00-大纲及参考"><a href="#00-大纲及参考" class="headerlink" title="00.大纲及参考"></a>00.大纲及参考</h1><p><a href="[数据结构概述](http://data.biancheng.net/intro/)">参考文档</a></p>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gc0sms3w2gj30u01tatkk.jpg" alt=""></p>
+<p>#数据结构与算法</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-hello-world" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/21/hello-world/"
+    >Hello World</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/21/hello-world/" class="article-date">
+  <time datetime="2020-02-21T12:20:36.471Z" itemprop="datePublished">2020-02-21</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        Leon
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="阿亮"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://sun-liangliang.lofter.com/" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['学习，编码，周游世界','愿你平凡一生',''],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    02.数组 |  阿亮
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="阿亮" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-02-数组" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  02.数组
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/24/02-%E6%95%B0%E7%BB%84/" class="article-date">
+  <time datetime="2020-02-24T10:43:23.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.5k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="02-数组"><a href="#02-数组" class="headerlink" title="02.数组"></a>02.数组</h1><blockquote>
+<p>内容概要<br>1). 概念<br>2). 数组的删除与插入操作<br>3). Leetcode：两数之和<br>4). 稀疏数组解决五子棋问题</p>
+</blockquote>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p><code>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据。</code></p>
+<blockquote>
+<p>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据<br>1). 线性表：数据像线一样排列，只有前后两个方向<br>2). 连续的内存空间和相同类型的数据：适合随机访问，根据下标访问<br>3). 低效的删除和插入</p>
+</blockquote>
+<h2 id="2-数组的删除和插入"><a href="#2-数组的删除和插入" class="headerlink" title="2.数组的删除和插入"></a>2.数组的删除和插入</h2><blockquote>
+<p><code>数组的插入和删除比较低效，有哪些改进办法呢？</code></p>
+</blockquote>
+<h3 id="2-1-插入操作"><a href="#2-1-插入操作" class="headerlink" title="2.1.插入操作"></a>2.1.插入操作</h3><p>因为数组是有序的，因此插入的时候，需要移动元素，若插入最后一个元素，则不需要移动，插入第一个元素，则需要移动n次，因此时间复杂度为<br>O(n)<br><strong><em>如何优化?</em></strong><br>若不考虑数组的有序性，则可以将插入位置的数据，移动到最后一个位置，将待插入数据插入指定位置即可，如下图<br>将字母c移动到最后一个位置,此时时间复杂度会变为O(1)<br> <img src="https://tva1.sinaimg.cn/large/0082zybply1gc1tc1v7rkj30vq0e7q3h.jpg" alt=""></p>
+<h3 id="2-2-删除操作"><a href="#2-2-删除操作" class="headerlink" title="2.2.删除操作"></a>2.2.删除操作</h3><p>为了保证数组的连续性，删除数据时同样要移动数据，时间复杂度也是O(n)</p>
+<p><strong><em>如何优化?</em></strong><br>如果不考虑数组的连续性，可以先将删除的数据标记，等数组空间不够用时候，再全部清除，这样可以大大减少数据移动的操作。<br>和JVM中的标记清除算法思想一样。</p>
+<h2 id="3-引入案例"><a href="#3-引入案例" class="headerlink" title="3.引入案例"></a>3.引入案例</h2><h3 id="3-1-leetcode"><a href="#3-1-leetcode" class="headerlink" title="3.1.leetcode"></a>3.1.leetcode</h3><blockquote>
+<p>leetcode: <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">力扣</a> 两数之和</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">    Map&lt;Integer,Integer&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        map.put(nums[I],i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int I&#x3D;0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp &#x3D; target - nums[I];</span><br><span class="line"></span><br><span class="line">        if (map.containsKey(temp) &amp;&amp; map.get(temp)!&#x3D;i)&#123;</span><br><span class="line">            return new int[]&#123;i,map.get(temp)&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    throw new ArithmeticException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用hashmap</p>
+<h3 id="3-2-稀疏数组"><a href="#3-2-稀疏数组" class="headerlink" title="3.2.稀疏数组"></a>3.2.稀疏数组</h3><blockquote>
+<p>编写的五子棋程序中，有存盘退出和续上盘的功能。 由于数组中很多位置为0，因此引入稀疏数组</p>
+</blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzlqhf5m5j317m0f8ndk.jpg" alt=""></p>
+<ol>
+<li><p>概念</p>
+<blockquote>
+<p>当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。<br>稀疏数组的处理方法是:<br>1) 记录数组一共有几行几列，有多少个不同的值<br>2) 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模  </p>
+</blockquote>
+</li>
+<li><p>应用案例</p>
+<blockquote>
+<p>应用案例说明<br>1) 使用稀疏数组存储棋盘(二维数组)<br>2) 把稀疏数组还原为原来二维数组</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzm67m8x9j30yg0kse1p.jpg" alt=""></p>
+</blockquote>
+<p>如下图：</p>
+<ul>
+<li>value=1：黑色棋子</li>
+<li>value=2：蓝色棋子<br><img src="https://tva1.sinaimg.cn/large/0082zybply1gbzpi51ti8j31900f0qhh.jpg" alt=""></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">稀疏数组中存储3列，</span><br><span class="line">	第一行中：第一列代表棋盘的行数，第二列代表棋盘的列数，第三列代表棋盘中的值</span><br><span class="line">  其他行： 第一列代表棋子横坐标，第二列代表棋子纵坐标，第三列代表值</span><br><span class="line"></span><br><span class="line">二维数组转稀疏数组</span><br><span class="line">1).获取棋子个数sum</span><br><span class="line">2).根据sum值创建稀疏数组，int []arr &#x3D; new int[sum+1][3];</span><br><span class="line">3).填充值：将棋盘中有效数据写入稀疏数组</span><br><span class="line"></span><br><span class="line">稀疏数组转二维数组</span><br><span class="line">1). 创建二维数组，稀疏数组中第一行分别代表棋盘的行数，列数以及棋子的个数</span><br><span class="line">			int []chessArr &#x3D; new int[ sparseArr[0][0] ][ sparseArr[0][1] ]</span><br><span class="line">2). 填充值：从第二行开始，第一列：棋子所在横坐标，第二列：棋子所在纵坐标，第三列：棋子的值</span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>代码实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">package com.data.learn;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 稀疏数组的应用</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Data_01 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;初始化棋盘</span><br><span class="line">        int chessArr[][] &#x3D; initChess();</span><br><span class="line">        System.out.println(“创建稀疏数组：”);</span><br><span class="line">        int sparseArr[][] &#x3D; createSparse(chessArr);</span><br><span class="line">        System.out.println(“还原为棋盘：”);</span><br><span class="line">        int chess[][] &#x3D; transfer(sparseArr);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 将稀疏数组还原</span><br><span class="line">     * @param sparseArr</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private static int[][] transfer(int[][] sparseArr) &#123;</span><br><span class="line">        &#x2F;&#x2F;1、第一行中的第1，2，3个元素，分别代表棋盘的长，宽，以及棋盘个数</span><br><span class="line">        int [][]chessArr &#x3D; new int[sparseArr[0][0]][sparseArr[0][1]];</span><br><span class="line">        &#x2F;&#x2F;2.从第二行开始读取稀疏数组的值，其中每行第一个值为x坐标，第二个值为y坐标，第3个值为棋子的值</span><br><span class="line">        for (int i&#x3D;1;i&lt; sparseArr.length;i++)&#123;&#x2F;&#x2F;从第2行开始</span><br><span class="line">            for (int j&#x3D;0;j&lt;sparseArr[i].length;j++)&#123;</span><br><span class="line">                int x &#x3D; sparseArr[i][0];</span><br><span class="line">                int y &#x3D; sparseArr[i][1];</span><br><span class="line">                int val &#x3D; sparseArr[i][2];</span><br><span class="line">                chessArr[x][y] &#x3D; val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(chessArr);</span><br><span class="line">        return chessArr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;将二维数组转换为稀疏数组稀疏数组</span><br><span class="line">    private static int[][] createSparse(int chessArr[][]) &#123;</span><br><span class="line">        int sum&#x3D;0;&#x2F;&#x2F;计算棋盘中棋子的个数</span><br><span class="line">        for (int[] arr:chessArr)&#123;</span><br><span class="line">            for (int item:arr)&#123;</span><br><span class="line">                if (item!&#x3D;0)&#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int sparse[][]&#x3D;new int[sum+1][3];</span><br><span class="line">        sparse[0][0] &#x3D; chessArr.length;</span><br><span class="line">        sparse[0][1] &#x3D; chessArr[0].length;</span><br><span class="line">        sparse[0][2] &#x3D; sum;</span><br><span class="line">        int count&#x3D;0;</span><br><span class="line">        for (int i&#x3D;0;i&lt;chessArr.length;i++)&#123;</span><br><span class="line"></span><br><span class="line">            for (int j&#x3D;0;j&lt;chessArr[i].length;j++)&#123;</span><br><span class="line">                if (chessArr[i][j]!&#x3D;0)&#123;&#x2F;&#x2F;获取到的值不为零，则行+1</span><br><span class="line">                    count++;</span><br><span class="line">                   sparse[count][0] &#x3D; i;</span><br><span class="line">                   sparse[count][1] &#x3D; j;</span><br><span class="line">                   sparse[count][2] &#x3D; chessArr[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        print(sparse);</span><br><span class="line">        return sparse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;初始化棋盘，11*11</span><br><span class="line">    private static int[][] initChess() &#123;</span><br><span class="line">        int chess[][] &#x3D; new int[11][11];</span><br><span class="line">        chess[1][2] &#x3D; 1;</span><br><span class="line">        chess[2][3] &#x3D; 2;</span><br><span class="line">        print(chess);</span><br><span class="line">         return chess;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;打印输出</span><br><span class="line">    private static void print(int arr[][])&#123;</span><br><span class="line">        if (arr.length&#x3D;&#x3D;0)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int[] arr1:arr)&#123;</span><br><span class="line">            for (int item:arr1)&#123;</span><br><span class="line">                System.out.print(&quot; &quot;+item);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ol>
+<p>#数据结构与算法/数组</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/02/24/02-%E6%95%B0%E7%BB%84/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/02/24/03-%E9%93%BE%E8%A1%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            03.链表
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/02/24/01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">01.数据结构与算法概述</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        Leon
+      </li>
+      <li>
+        
+          Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="阿亮"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://sun-liangliang.lofter.com/" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2020/02/24/%E5%85%B3%E4%BA%8E%E6%88%91/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['学习，编码，周游世界','愿你平凡一生',''],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+  </div>
+</body>
+
+</html>
